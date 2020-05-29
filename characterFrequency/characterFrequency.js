@@ -27,14 +27,18 @@ module.exports = characterFrequency = (string) => {
     */
 
 	// THIS IS A COMPARATOR FUNCTION WE WILL USE AT THE END
+	// We need to define it before we need to use it, so reading through this will be easier once you have examined the for loop below.
 	let comparatorFunc = (arr1, arr2) => {
 		// This function takes two arguments: arr1 and arr2. Each is one of the arrays returned by the Object.entries(collection) below and have the format [letter, frequency]
-		//  This is a comparator function for use with sort, and it follows the format defined on MDN for use with Array.prototype.sort() - i.e. it returns a numeric value that tells sort where it needs to go.
+		//  This is a comparator function for use with Array.prototype.sort, and it follows the format defined on MDN for use with Array.prototype.sort() - i.e. it returns a numeric value that tells sort where it needs to go.
 
 		// First, let's check if the frequencies are equivalent, since then we would need to sort them in alphabetical order.
 		if (arr1[1] === arr2[1]) {
-			//If the frequencies are the same, let's compare them by the UNICODE values of the letters.  Since we used an object to collect information, there will never a case in which the same letter needs to be compared to itself for frequency, ergo we do not need to ever return a 0.
-			if (arr1[0] < arr2[0]) return -1; // if we need to move them,
+			//If the frequencies are the same, let's compare them by the UNICODE values of the letters.  Since we used an object to collect information, there will never a case in which the same letter needs to be compared to itself for frequency, ergo we do not need to ever return a 0, which would indicate a precise equivalency to the sort function.
+
+			if (arr1[0] < arr2[0]) return -1; // if we want something to evaluate as LESS than something else via this function, we need to return -1 or some other sub-zero number
+
+			// else we want to return 1 or some other above-zero number.
 			return 1;
 		}
 		return arr2[1] - arr1[1];
